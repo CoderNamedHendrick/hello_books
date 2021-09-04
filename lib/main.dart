@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'ैलो िकताब'
   ];
 
+  bool isLocal = true;
   int index = 0;
   late String current;
   void _updateGreeting() {
@@ -39,50 +40,58 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Color> colors = [Colors.orange, Colors.red, Colors.pink, Colors.blue];
+
+  getColor(int index) {
+    return colors[index];
+  }
+
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(widget.title),
-    //   ),
-    //   body: Center(
-    //     child: Text(
-    //       greetings[index],
-    //       style: Theme.of(context).textTheme.headline4,
-    //     ),
-    //   ),
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: _updateGreeting,
-    //     tooltip: 'Greeting',
-    //     child: Icon(Icons.insert_emoticon),
-    //   ),
-    // );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Image Widget"),
+        title: Text(widget.title),
       ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 300,
-          padding: const EdgeInsets.all(20.0),
-          child: ToggleButtons(
+      body: Table(
+        border: TableBorder.all(width: 20),
+        columnWidths: {
+          0: FractionColumnWidth(.5),
+          1: FractionColumnWidth(.5),
+        },
+        children: [
+          TableRow(
             children: [
-              Icon(Icons.airplanemode_off),
-              Icon(Icons.airplanemode_on),
+              childWidget(0),
+              childWidget(1),
             ],
           ),
-        ),
+          TableRow(
+            children: [
+              childWidget(2),
+              childWidget(3),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _updateGreeting,
+        tooltip: 'Greeting',
+        child: Icon(Icons.insert_emoticon),
       ),
     );
   }
 
-  Widget loadLocalImage() {
-    return Image.asset("assets/flutter.png");
-  }
-
-  Widget loadInternetImage() {
-    return Image.network(
-        "https://github.com/ptyagicodecamp/flutter_cookbook2/raw/master/assets/flutter_icon.png");
+  Widget childWidget(int index) {
+    return Container(
+      color: getColor(index),
+      width: 200 + index * 20.toDouble(),
+      height: 200 + index * 30.toDouble(),
+      child: Center(
+        child: Text(
+          '$index',
+          style: TextStyle(fontSize: 40),
+        ),
+      ),
+    );
   }
 }
