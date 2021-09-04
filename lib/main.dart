@@ -52,27 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Table(
-        border: TableBorder.all(width: 20),
-        columnWidths: {
-          0: FractionColumnWidth(.5),
-          1: FractionColumnWidth(.5),
-        },
-        children: [
-          TableRow(
-            children: [
-              childWidget(0),
-              childWidget(1),
-            ],
-          ),
-          TableRow(
-            children: [
-              childWidget(2),
-              childWidget(3),
-            ],
-          ),
-        ],
-      ),
+      body: expandedWithFlex(),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateGreeting,
         tooltip: 'Greeting',
@@ -92,6 +72,40 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(fontSize: 40),
         ),
       ),
+    );
+  }
+
+  Widget expandedWithFlex() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 4,
+          child: childWidget(0),
+        ),
+        Expanded(
+          flex: 3,
+          child: childWidget(1),
+        ),
+        Expanded(
+          child: childWidget(2),
+        ),
+      ],
+    );
+  }
+
+  Widget expandedDefault() {
+    return Row(
+      children: [
+        Expanded(
+          child: childWidget(1),
+        ),
+        Expanded(
+          child: childWidget(2),
+        ),
+        Expanded(
+          child: childWidget(3),
+        ),
+      ],
     );
   }
 }
