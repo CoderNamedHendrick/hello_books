@@ -1,56 +1,88 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(HelloBooksApp());
+  runApp(BooksApp());
 }
 
-class HelloBooksApp extends StatelessWidget {
+class BooksApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'Hello Books'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Books Listing"),
+        ),
+        body: BooksListing(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final List<String> greetings = [
-    'Hello Books',
-    'Hola Libros',
-    'Ciao Libri',
-    'ैलो िकताब'
-  ];
-
-  bool isLocal = true;
-  int index = 0;
-  late String current;
-  void _updateGreeting() {
-    setState(() {
-      current = greetings[index];
-      index = index == (greetings.length - 1) ? 0 : index + 1;
-    });
-  }
-
+class BooksListing extends StatelessWidget {
+  final booksListing = bookData();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _updateGreeting,
-        tooltip: 'Greeting',
-        child: Icon(Icons.insert_emoticon),
-      ),
+    return ListView.builder(
+      itemCount: booksListing.length,
+      itemBuilder: (context, index) {
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(10),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${booksListing[index]['title']}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      booksListing[index]['authors'] != null
+                          ? Text(
+                              'Author(s): ${booksListing[index]['authors'].join(", ")}',
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            )
+                          : Text(""),
+                    ],
+                  ),
+                ),
+                Image.asset(
+                  booksListing[index]['image'],
+                  fit: BoxFit.fill,
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
+}
+
+List bookData() {
+  return [
+    {
+      'title': 'Book Title',
+      'authors': ['Author1', 'Author2'],
+      'image': 'assets/book_cover.png',
+    },
+    {
+      'title': 'Book Title 2',
+      'authors': ['Author1'],
+      'image': 'assets/book_cover.png',
+    }
+  ];
 }
