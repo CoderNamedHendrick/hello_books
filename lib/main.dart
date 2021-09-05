@@ -5,10 +5,34 @@ void main() {
 }
 
 class BooksApp extends StatelessWidget {
+  final ThemeData defaultTheme = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.blue,
+    accentColor: Colors.lightBlueAccent,
+    appBarTheme: AppBarTheme(
+      color: Colors.blue,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+    ),
+  );
+
+  final ThemeData pinkTheme = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.pink,
+    accentColor: Colors.pinkAccent,
+  );
+
+  final ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.orange,
+    accentColor: Colors.yellowAccent,
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      theme: darkTheme,
       home: Scaffold(
         appBar: AppBar(
           title: Text("Books Listing"),
