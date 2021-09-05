@@ -1,41 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hello_books/themes.dart';
 
 void main() {
   runApp(BooksApp());
 }
 
 class BooksApp extends StatelessWidget {
-  final ThemeData defaultTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: Colors.blue,
-    accentColor: Colors.lightBlueAccent,
-    appBarTheme: AppBarTheme(
-      color: Colors.blue,
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-  );
-
-  final ThemeData pinkTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: Colors.pink,
-    accentColor: Colors.pinkAccent,
-  );
-
-  final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: Colors.orange,
-    accentColor: Colors.yellowAccent,
-  );
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: darkTheme,
+      theme: defaultTheme,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Books Listing"),
+          title: Text(
+            "Books Listing",
+            style: TextStyle(
+              fontFamily: 'Pangolin',
+              fontSize: 30,
+            ),
+          ),
         ),
         body: BooksListing(),
       ),

@@ -32,6 +32,11 @@ flutter:
   assets:
     - assets/flutter.png
     - assets/book_cover.png
+
+  fonts:
+    - family: Pangolin
+      fonts:
+        - asset: assets/fonts/Pangolin-Regular.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
