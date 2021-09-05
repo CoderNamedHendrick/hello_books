@@ -77,6 +77,7 @@ class _BooksAppState extends State<BooksApp> {
       theme: currentTheme == AppThemes.LIGHT ? defaultTheme : darkTheme,
       home: Scaffold(
         appBar: AppBar(
+          leading: Icon(Icons.home_filled),
           title: Text(
             "Books Listing",
             style: TextStyle(
