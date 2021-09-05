@@ -40,72 +40,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Color> colors = [Colors.orange, Colors.red, Colors.pink, Colors.blue];
-
-  getColor(int index) {
-    return colors[index];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: expandedWithFlex(),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateGreeting,
         tooltip: 'Greeting',
         child: Icon(Icons.insert_emoticon),
       ),
-    );
-  }
-
-  Widget childWidget(int index) {
-    return Container(
-      color: getColor(index),
-      width: 200 + index * 20.toDouble(),
-      height: 200 + index * 30.toDouble(),
-      child: Center(
-        child: Text(
-          '$index',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-    );
-  }
-
-  Widget expandedWithFlex() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 4,
-          child: childWidget(0),
-        ),
-        Expanded(
-          flex: 3,
-          child: childWidget(1),
-        ),
-        Expanded(
-          child: childWidget(2),
-        ),
-      ],
-    );
-  }
-
-  Widget expandedDefault() {
-    return Row(
-      children: [
-        Expanded(
-          child: childWidget(1),
-        ),
-        Expanded(
-          child: childWidget(2),
-        ),
-        Expanded(
-          child: childWidget(3),
-        ),
-      ],
     );
   }
 }
