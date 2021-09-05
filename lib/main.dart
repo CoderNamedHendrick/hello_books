@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_books/themes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(BooksApp());
@@ -13,7 +14,35 @@ class BooksApp extends StatefulWidget {
 }
 
 class _BooksAppState extends State<BooksApp> {
-  var currentTheme = AppThemes.LIGHT;
+  AppThemes currentTheme = AppThemes.LIGHT;
+
+  // Fetching theme_id from SharedPreference
+  void loadActiveTheme(BuildContext context) async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    // if theme_id is null, then set default theme
+    int themeId = sharedPrefs.getInt('theme_id') ?? AppThemes.LIGHT.index;
+
+    setState(() {
+      currentTheme = AppThemes.values[themeId];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Load theme from sharedPreference
+    loadActiveTheme(context);
+  }
+
+  // Save theme_id using SharedPreference
+  Future<void> switchTheme() async {
+    currentTheme =
+        currentTheme == AppThemes.LIGHT ? AppThemes.DARK : AppThemes.LIGHT;
+
+    // save current selection
+    var sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setInt('theme_id', currentTheme.index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +63,7 @@ class _BooksAppState extends State<BooksApp> {
               onPressed: () {
                 setState(
                   () {
-                    currentTheme = currentTheme == AppThemes.LIGHT
-                        ? AppThemes.DARK
-                        : AppThemes.LIGHT;
+                    switchTheme();
                   },
                 );
               },
