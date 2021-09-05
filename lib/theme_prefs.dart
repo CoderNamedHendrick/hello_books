@@ -1,4 +1,3 @@
-import 'package:hello_books/main.dart';
 import 'package:moor/moor.dart';
 import '../themes.dart';
 part 'theme_prefs.g.dart';

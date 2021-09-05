@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import '../shared.dart';
+import 'package:hello_books/theme_prefs.dart';
 import 'package:hello_books/themes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(BooksApp());
 }
-
-enum AppThemes { LIGHT, DARK }
 
 class BooksApp extends StatefulWidget {
   @override
@@ -15,15 +14,23 @@ class BooksApp extends StatefulWidget {
 
 class _BooksAppState extends State<BooksApp> {
   AppThemes currentTheme = AppThemes.LIGHT;
+  MyDatabase _database = constructDb();
 
   // Fetching theme_id from SharedPreference
-  void loadActiveTheme(BuildContext context) async {
-    var sharedPrefs = await SharedPreferences.getInstance();
-    // if theme_id is null, then set default theme
-    int themeId = sharedPrefs.getInt('theme_id') ?? AppThemes.LIGHT.index;
+  // void loadActiveTheme(BuildContext context) async {
+  //   var sharedPrefs = await SharedPreferences.getInstance();
+  // if theme_id is null, then set default theme
+  //   int themeId = sharedPrefs.getInt('theme_id') ?? AppThemes.LIGHT.index;
+  //   setState(() {
+  //     currentTheme = AppThemes.values[themeId];
+  //   });
+  // }
 
+  // Fetching theme_id DB
+  void loadActiveTheme(BuildContext context) async {
+    ThemePref themePref = await _database.getActiveTheme();
     setState(() {
-      currentTheme = AppThemes.values[themeId];
+      currentTheme = AppThemes.values[themePref.themeId];
     });
   }
 
@@ -35,13 +42,32 @@ class _BooksAppState extends State<BooksApp> {
   }
 
   // Save theme_id using SharedPreference
-  Future<void> switchTheme() async {
-    currentTheme =
-        currentTheme == AppThemes.LIGHT ? AppThemes.DARK : AppThemes.LIGHT;
+  // Future<void> switchTheme() async {
+  //   currentTheme =
+  //       currentTheme == AppThemes.LIGHT ? AppThemes.DARK : AppThemes.LIGHT;
+  //   save current selection
+  //   var sharedPrefs = await SharedPreferences.getInstance();
+  //   await sharedPrefs.setInt('theme_id', currentTheme.index);
+  // }
 
-    // save current selection
-    var sharedPrefs = await SharedPreferences.getInstance();
-    await sharedPrefs.setInt('theme_id', currentTheme.index);
+  // Save theme_id in DB
+  Future<void> switchTheme() async {
+    var oldTheme = currentTheme;
+
+    currentTheme == AppThemes.LIGHT
+        ? currentTheme = AppThemes.DARK
+        : currentTheme = AppThemes.LIGHT;
+
+    // check if theme_id entry exists in table already
+    var isOldThemeActive = _database.themeIdExists(oldTheme.index);
+    // only active theme id is present in the db.
+    // Remove any existing theme id from DB before adding new entry
+    if (isOldThemeActive != null) {
+      _database.deactivateTheme(oldTheme.index);
+    }
+    setState(() {
+      _database.activateTheme(currentTheme);
+    });
   }
 
   @override
