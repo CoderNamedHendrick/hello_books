@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:hello_books/main.dart';
 import 'package:moor/moor.dart';
 import '../themes.dart';
@@ -49,7 +47,7 @@ class MyDatabase extends _$MyDatabase {
   }
 
   void activateTheme(AppThemes theme) {
-    ThemePrefs pref =
+    ThemePref pref =
         ThemePref(themeId: theme.index, themeName: theme.toString());
     into(themePrefs).insert(pref);
   }
