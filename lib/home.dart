@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_books/api.dart';
+import 'package:hello_books/booktile.dart';
 
 class BookListing extends StatefulWidget {
   @override
@@ -7,7 +8,7 @@ class BookListing extends StatefulWidget {
 }
 
 class _BookListingState extends State<BookListing> {
-  String booksResponse = '';
+  late var booksListing;
 
   // method to fetch books asynchronously
   fetchBooks() async {
@@ -16,7 +17,7 @@ class _BookListingState extends State<BookListing> {
 
     // updating booksResponse to fetched remote data
     setState(() {
-      booksResponse = response;
+      booksListing = response["items"];
     });
   }
 
@@ -29,11 +30,12 @@ class _BookListingState extends State<BookListing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        // ignore: unnecessary_null_comparison
-        child: booksResponse != ''
-            ? Text("Google Books API response \n $booksResponse")
-            : Text("No Response from API"),
+      body: ListView.builder(
+        itemCount: booksListing == null ? 0 : booksListing.length,
+        itemBuilder: (context, index) {
+          // current information passed on to BookTile
+          return BookTile(book: booksListing[index]);
+        },
       ),
     );
   }
