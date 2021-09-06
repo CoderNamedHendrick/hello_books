@@ -1,11 +1,11 @@
 import 'dart:convert';
-
+import 'package:hello_books/models/bookmodel.dart';
 import 'package:http/http.dart' as http;
 
 final apiKey = "";
 
 // Making HTTP request
-Future<dynamic> makeHttpCall() async {
+Future<List<BookModel>> makeHttpCall() async {
   final apiEndPoint =
       "https://www.googleapis.com/books/v1/volumes?key=$apiKey&q=python+programming";
   final http.Response response = await http
@@ -15,7 +15,7 @@ Future<dynamic> makeHttpCall() async {
   // Converting string response body to JSON representation
   final jsonObject = json.decode(response.body);
 
-  // Prints JSON formatted response on console
-  print(jsonObject);
-  return jsonObject;
+  var list = jsonObject['items'] as List;
+  // return the list of book objects
+  return list.map((e) => BookModel.fromJson(e)).toList();
 }

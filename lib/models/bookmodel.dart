@@ -1,6 +1,6 @@
 import 'package:hello_books/accessinfo.dart';
-import 'package:hello_books/saleinfo.dart';
-import 'package:hello_books/volumeinfo.dart';
+import 'package:hello_books/models/saleinfo.dart';
+import 'package:hello_books/models/volumeinfo.dart';
 
 class BookModel {
   final VolumeInfo volumeInfo;

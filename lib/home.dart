@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_books/api.dart';
 import 'package:hello_books/booktile.dart';
+import 'package:hello_books/models/bookmodel.dart';
 
 class BookListing extends StatefulWidget {
   @override
@@ -8,16 +9,14 @@ class BookListing extends StatefulWidget {
 }
 
 class _BookListingState extends State<BookListing> {
-  late var booksListing;
+  List<BookModel> booksListing = [];
 
   // method to fetch books asynchronously
   fetchBooks() async {
     // making REST API call
     var response = await makeHttpCall();
-
-    // updating booksResponse to fetched remote data
     setState(() {
-      booksListing = response["items"];
+      booksListing = response;
     });
   }
 
@@ -30,11 +29,15 @@ class _BookListingState extends State<BookListing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Book Listings'),
+        centerTitle: true,
+      ),
       body: ListView.builder(
-        itemCount: booksListing == null ? 0 : booksListing.length,
+        itemCount: booksListing.isEmpty ? 0 : booksListing.length,
         itemBuilder: (context, index) {
-          // current information passed on to BookTile
-          return BookTile(book: booksListing[index]);
+          // Passing bookModel obj to BookTile widget
+          return BookTile(bookModelObj: booksListing[index]);
         },
       ),
     );

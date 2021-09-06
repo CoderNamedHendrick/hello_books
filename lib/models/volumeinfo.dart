@@ -1,4 +1,4 @@
-import 'package:hello_books/imagelinks.dart';
+import 'package:hello_books/models/imagelinks.dart';
 
 class VolumeInfo {
   final String title;
@@ -22,11 +22,11 @@ class VolumeInfo {
   factory VolumeInfo.fromJson(Map<String, dynamic> json) {
     return VolumeInfo(
       title: json['title'],
-      subtitle: json['subtitle'],
-      description: json['description'],
+      subtitle: json['subtitle'] ?? '',
+      description: json['description'] ?? '',
       authors: json['authors'] as List,
-      publisher: json['publisher'],
-      publishedDate: json['publishedDate'],
+      publisher: json['publisher'] ?? '',
+      publishedDate: json['publishedDate'] ?? '',
       imageLinks: ImageLinks.fromJson(
         json['imageLinks'],
       ),

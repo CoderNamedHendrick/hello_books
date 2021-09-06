@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hello_books/models/bookmodel.dart';
 
 class BookTile extends StatelessWidget {
-  const BookTile({Key? key, required this.book}) : super(key: key);
-  final book;
+  const BookTile({Key? key, required this.bookModelObj}) : super(key: key);
+  final BookModel bookModelObj;
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +23,16 @@ class BookTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${book['volumeInfo']['title']}',
+                    '${bookModelObj.volumeInfo.title}',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  book['volumeInfo']['authors'] != null
+                  // ignore: unnecessary_null_comparison
+                  bookModelObj.volumeInfo.authors != null
                       ? Text(
-                          'Author(s): ${book['volumeInfo']['authors'].join(", ")}',
+                          'Author(s): ${bookModelObj.volumeInfo.authors.join(", ")}',
                           style: TextStyle(
                             fontSize: 14,
                           ),
@@ -39,9 +41,10 @@ class BookTile extends StatelessWidget {
                 ],
               ),
             ),
-            book['volumeInfo']['imageLinks']['thumbnail'] != null
+            // ignore: unnecessary_null_comparison
+            bookModelObj.volumeInfo.imageLinks.thumbnail != null
                 ? Image.network(
-                    book['volumeInfo']['imageLinks']['thumbnail'],
+                    bookModelObj.volumeInfo.imageLinks.thumbnail,
                     fit: BoxFit.fill,
                   )
                 : Container(),
