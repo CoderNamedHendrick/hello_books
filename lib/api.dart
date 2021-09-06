@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-final apiKey = "AIzaSyC2citg8HavN-Rng_OZL0N5cJ7AHWpWEss";
+final apiKey = "";
 
 // Making HTTP request
 Future<dynamic> makeHttpCall() async {
