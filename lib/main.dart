@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello_books/bookdetail.dart';
-import 'package:hello_books/home.dart';
 import 'package:hello_books/models/bookmodel.dart';
-import 'package:hello_books/pagenotfound.dart';
+import 'package:hello_books/screens/bookdetail.dart';
+import 'package:hello_books/screens/home.dart';
+import 'package:hello_books/screens/pagenotfound.dart';
 
 void main() {
   runApp(BooksApp());

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello_books/actionwidget.dart';
-import 'package:hello_books/descriptionwidget.dart';
-import 'package:hello_books/informationwidget.dart';
 import 'package:hello_books/models/bookmodel.dart';
+import 'package:hello_books/widgets/actionwidget.dart';
+import 'package:hello_books/widgets/descriptionwidget.dart';
+import 'package:hello_books/widgets/informationwidget.dart';
 
 class BookDetailsPage extends StatelessWidget {
   const BookDetailsPage({Key? key, required this.book}) : super(key: key);
