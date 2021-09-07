@@ -14,20 +14,23 @@ class BookDetailsPage extends StatelessWidget {
         title: Text(book.volumeInfo.title),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InformationWidget(
-              book: book,
-            ),
-            ActionsWidget(
-              book: book,
-            ),
-            DescriptionWidget(
-              book: book,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InformationWidget(
+                book: book,
+              ),
+              ActionsWidget(
+                book: book,
+              ),
+              DescriptionWidget(
+                book: book,
+              ),
+            ],
+          ),
         ),
       ),
     );
