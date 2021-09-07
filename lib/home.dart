@@ -37,7 +37,14 @@ class _BookListingState extends State<BookListing> {
         itemCount: booksListing.isEmpty ? 0 : booksListing.length,
         itemBuilder: (context, index) {
           // Passing bookModel obj to BookTile widget
-          return BookTile(bookModelObj: booksListing[index]);
+          return GestureDetector(
+            child: BookTile(bookModelObj: booksListing[index]),
+            onTap: () => Navigator.pushNamed(
+              context,
+              '/details',
+              arguments: booksListing[index],
+            ),
+          );
         },
       ),
     );

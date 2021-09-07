@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_books/bookdetail.dart';
 import 'package:hello_books/home.dart';
+import 'package:hello_books/models/bookmodel.dart';
+import 'package:hello_books/pagenotfound.dart';
 
 void main() {
   runApp(BooksApp());
@@ -10,7 +13,34 @@ class BooksApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BookListing(),
+      initialRoute: '/',
+      onGenerateRoute: generateRoute,
     );
+  }
+
+  Route<dynamic> generateRoute(RouteSettings routeSettings) {
+    final args = routeSettings.arguments;
+    switch (routeSettings.name) {
+      case '/':
+        return MaterialPageRoute(
+          builder: (context) => BookListing(),
+        );
+      case '/details':
+        if (args is BookModel) {
+          return MaterialPageRoute(
+            builder: (context) => BookDetail(
+              book: args,
+            ),
+          );
+        }
+        return MaterialPageRoute(
+          builder: (context) => PageNotFound(),
+        );
+      default:
+        return MaterialPageRoute(
+          builder: (context) => PageNotFound(),
+        );
+    }
   }
 }
 // class BooksApp extends StatefulWidget {
