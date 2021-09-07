@@ -28,7 +28,7 @@ class BooksApp extends StatelessWidget {
       case '/details':
         if (args is BookModel) {
           return MaterialPageRoute(
-            builder: (context) => BookDetail(
+            builder: (context) => BookDetailsPage(
               book: args,
             ),
           );
